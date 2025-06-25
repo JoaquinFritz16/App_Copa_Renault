@@ -1,17 +1,30 @@
-{%extends "./base.html" %}
+{% extends "./base.html" %}
 
-{% block title %}{{data.title}}{% endblock %}
+{% block title %}{{ data.title }}{% endblock %}
 
 {% block body %}
-<h1>{{data.title}}</h1>
-    {% if data.number_of_sports > 0 %}
-    <p>{{data.description}}</p>
-    <ul>
+<div class="text-center">
+    <h1 class="mb-3">{{ data.title }}</h1>
+    <p class="lead">{{ data.description }}</p>
+</div>
+
+{% if data.number_of_sports > 0 %}
+    <div class="row">
         {% for sport in deportes %}
-            <li>{{ sport.name }}</li>
+        <div class="col-md-4">
+            <div class="card mb-3 shadow-sm">
+                <a href="/{{ sport.name | lower }}" style="text-decoration: none; color: inherit;">
+                    <img src="{{ sport.image }}" class="card-img-top" alt="Imagen de {{ sport.name }}">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ sport.name }}</h5>
+                        <p class="card-text">Conocé más sobre el torneo de {{ sport.name }}.</p>
+                    </div>
+                </a>
+            </div>
+        </div>
         {% endfor %}
-    </ul>
-    {% else %}
-        <p>No sports available.</p>
-    {% endif %}
-{%endblock%}
+    </div>
+{% else %}
+    <p>No hay deportes disponibles.</p>
+{% endif %}
+{% endblock %}

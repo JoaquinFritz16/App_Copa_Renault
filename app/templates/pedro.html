@@ -1,18 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ data.title }}</title>
-</head>
-<body>
-    <h1>Welcome to the Pedro Page</h1>
-    <!-- {% extends "./base.html" %}
+{% extends "./base.html" %}
 
-    <title>{% block title %}Contacto{% endblock %}</title>
-    {% block body %}
-    <h1>Contact Us</h1>
-    {% endblock %} -->
-2
-</body>
-</html>
+{% block title %}Pedro{% endblock %}
+
+{% block body %}
+    <h1>Bienvenido a la página de Pedro</h1>
+    <p>Esta es una subpágina con su propio contenido.</p>
+{% endblock %}
