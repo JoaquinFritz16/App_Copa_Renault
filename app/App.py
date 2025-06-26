@@ -2,7 +2,10 @@ from functools import wraps
 from flask import Flask, request, jsonify, render_template, redirect, session, url_for
 
 app = Flask(__name__)
+app.secret_key = 'una_clave_segura_y_larga'
+equipos_registrados = []
 def login_required(f):
+    @wraps(f)
     def decorated_function(*args, **kwargs):
         if 'user_email' not in session:
             return redirect(url_for('login'))
@@ -24,6 +27,10 @@ def login():
             return render_template('login.html', error="Datos incorrectos")
     
     return render_template('login.html')
+@app.route('/logout')
+def logout():
+    session.clear()
+    return redirect(url_for('index'))
 
 @app.route('/')
 def index():
@@ -58,7 +65,7 @@ def sponsors():
     return render_template('sponsors.html')
 
 @app.route('/fixtures')
-# @login_required
+@login_required
 def fixtures():
     return render_template('fixtures.html')
 
@@ -76,6 +83,29 @@ def basquet():
 # @login_required
 def voley():
     return render_template('./deportes/voley.html')
+@app.route('/registrar_equipo', methods=['GET', 'POST'])
+def registrar_equipo():
+    if request.method == 'POST':
+        nombre_equipo = request.form['nombre']
+        deporte = request.form['deporte']
+
+        # Validación simple para evitar duplicados
+        for equipo in equipos_registrados:
+            if equipo['nombre'] == nombre_equipo and equipo['deporte'] == deporte:
+                return render_template('registrar_equipo.html', error="Ese equipo ya está registrado.")
+
+        # Simulamos guardar
+        equipos_registrados.append({
+            'nombre': nombre_equipo,
+            'deporte': deporte
+        })
+
+        return redirect(url_for('lista_equipos'))
+
+    return render_template('registrar_equipo.html')
+@app.route('/equipos')
+def lista_equipos():
+    return render_template('equipos.html', equipos=equipos_registrados)
 
 
 if __name__ == '__main__':
