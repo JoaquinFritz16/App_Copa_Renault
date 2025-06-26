@@ -3,7 +3,6 @@ from flask import Flask, request, jsonify, render_template, redirect, session, u
 
 app = Flask(__name__)
 def login_required(f):
-    @wraps(f)
     def decorated_function(*args, **kwargs):
         if 'user_email' not in session:
             return redirect(url_for('login'))
