@@ -84,20 +84,24 @@ def basquet():
 def voley():
     return render_template('./deportes/voley.html')
 @app.route('/registrar_equipo', methods=['GET', 'POST'])
+@login_required
 def registrar_equipo():
     if request.method == 'POST':
         nombre_equipo = request.form['nombre']
         deporte = request.form['deporte']
-
+        categoria = request.form['categoria']
+        genero = request.form['genero']
         # Validación simple para evitar duplicados
         for equipo in equipos_registrados:
-            if equipo['nombre'] == nombre_equipo and equipo['deporte'] == deporte:
+            if equipo['nombre'] == nombre_equipo and equipo['deporte'] == deporte and equipo['categoria'] == categoria and equipo['genero'] == genero:
                 return render_template('registrar_equipo.html', error="Ese equipo ya está registrado.")
 
         # Simulamos guardar
         equipos_registrados.append({
             'nombre': nombre_equipo,
-            'deporte': deporte
+            'deporte': deporte,
+            'categoria': categoria,
+            'genero':genero
         })
 
         return redirect(url_for('lista_equipos'))
