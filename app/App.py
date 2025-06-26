@@ -15,8 +15,7 @@ def login():
         email = request.form['email']
         contraseña = request.form['password']
 
-        # Aquí deberías buscar el usuario en la base de datos
-        # y verificar la contraseña, por ahora lo simulo:
+        #simulacion porque no funciona la base de datos
         if email == "admin@copa.com" and contraseña == "1234":
             session['user_email'] = email
             session['user_role'] = 'admin'
