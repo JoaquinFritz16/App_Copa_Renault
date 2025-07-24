@@ -35,9 +35,9 @@ def logout():
 @app.route('/')
 def index():
     deportes = [
-        {"id": 1, "name": "Futbol", "image": "#"},
-        {"id": 2, "name": "Basquet", "image": "#"},
-        {"id": 3, "name": "Voley", "image": "#"}
+        {"id": 1, "name": "Futbol", "image": url_for('static', filename='images/futbol.png')},
+        {"id": 2, "name": "Basquet", "image": url_for('static', filename='images/basquet.png')},
+        {"id": 3, "name": "Voley", "image": url_for('static', filename='images/volley1.png')}
     ]
     data = {
         "title": "Bienvenido a la aplicacion de la Copa!",
