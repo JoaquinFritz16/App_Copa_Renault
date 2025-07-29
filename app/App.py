@@ -1,9 +1,27 @@
+import mysql.connector
+from db import get_db_connection 
 from functools import wraps
 from flask import Flask, request, jsonify, render_template, redirect, session, url_for
 
 app = Flask(__name__)
 app.secret_key = 'una_clave_segura_y_larga'
 equipos_registrados = []
+
+
+ # Asegurate que esté bien importado
+
+@app.route('/test_db')
+def test_db():
+    try:
+        conn = get_db_connection()
+        cursor = conn.cursor()
+        cursor.execute("SELECT DATABASE();")
+        result = cursor.fetchone()
+        cursor.close()
+        conn.close()
+        return f"Conexión exitosa a la base de datos: {result[0]}"
+    except Exception as e:
+        return f"Error en la conexión: {str(e)}"
 def login_required(f):
     @wraps(f)
     def decorated_function(*args, **kwargs):
