@@ -31,6 +31,18 @@
           <li class="nav-item">
             <a class="nav-link" href="/cantina">Cantina</a>
           </li>
+          {% if session.get('user_role') == 'admin' %}
+          <li class="nav-item">
+            <a class="nav-link" href="/admin/colegios_pendientes">Gestionar Colegios</a>
+          </li>
+          {% endif %}
+
+          {% if session.get('user_email') %}
+              <li class="nav-item">
+                  <a class="nav-link" href="/registrar_colegio">Registrar Colegio</a>
+              </li>
+          {% endif %}
+
           <li class="nav-item">
             <a class="nav-link" href="/sponsors">Sponsors</a>
           </li>

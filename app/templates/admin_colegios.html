@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block body %}
+{% block title %}Colegios Pendientes (Admin){% endblock %}
+<h2>Colegios Pendientes</h2>
+<table class="table">
+  <thead>
+    <tr>
+      <th>Nombre</th>
+      <th>Dirección</th>
+      <th>Acciones</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for colegio in colegios %}
+      <tr>
+        <td>{{ colegio.nombre }}</td>
+        <td>{{ colegio.direccion }}</td>
+        <form action="{{ url_for('aprobar_colegio', id=colegio.id_colegio) }}" method="post" style="display:inline;">
+    <button type="submit" class="btn btn-success btn-sm">Aprobar</button>
+</form>
+
+<form action="{{ url_for('rechazar_colegio', id=colegio.id_colegio) }}" method="post" style="display:inline;">
+    <button type="submit" class="btn btn-danger btn-sm">Rechazar</button>
+</form>
+
+      </tr>
+    {% else %}
+      <tr>
+        <td colspan="3">No hay colegios pendientes.</td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+{% endblock %}
